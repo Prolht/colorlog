@@ -1,38 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
+
+r"""python log with color
+
+Usage::
+
+    from log import logger
+
+log = logger(log_to_file=True)
+log.debug("Hello World")
+
+
 """
-    log.py
-    ~~~~~~
-
-    log module
-
-    :author:    lightless <root@lightless.me>
-    :homepage:  None
-    :license:   GPL-3.0, see LICENSE for more details.
-    :copyright: Copyright (c) 2017 lightless. All rights reserved
-"""
-
 import os
 import logging
 import logging.handlers
+import warnings
 
+from config import LEVEL_COLOR, STDOUT_DATE_FMT, STDOUT_DATE_FMT, FILE_DATE_FMT, FILE_DATE_FMT, STDOUT_LOG_FMT # 读取配置文件
 __all__ = ["logger"]
-
-
-# 用户配置部分 ↓
-LEVEL_COLOR = {
-    'DEBUG': 'cyan',
-    'INFO': 'green',
-    'WARNING': 'yellow',
-    'ERROR': 'red',
-    'CRITICAL': 'red,bg_white',
-}
-STDOUT_LOG_FMT = "%(log_color)s[%(asctime)s] [%(levelname)s] [%(threadName)s] [%(filename)s:%(lineno)d] %(message)s"
-STDOUT_DATE_FMT = "%Y-%m-%d %H:%M:%S"
-FILE_LOG_FMT = "[%(asctime)s] [%(levelname)s] [%(threadName)s] [%(filename)s:%(lineno)d] %(message)s"
-FILE_DATE_FMT = "%Y-%m-%d %H:%M:%S"
-# 用户配置部分 ↑
 
 
 class ColoredFormatter(logging.Formatter):
@@ -97,7 +84,7 @@ class ColoredFormatter(logging.Formatter):
         return message
 
 
-def _get_logger(log_to_file=True, log_filename="default.log", log_level="DEBUG"):
+def _get_logger(log_to_file=False, log_filename="", log_level="DEBUG"):
 
     _logger = logging.getLogger(__name__)
 
@@ -110,9 +97,13 @@ def _get_logger(log_to_file=True, log_filename="default.log", log_level="DEBUG")
     )
     _logger.addHandler(stdout_handler)
 
-    if log_to_file:
+    if log_to_file or log_filename:
         _tmp_path = os.path.dirname(os.path.abspath(__file__))
-        _tmp_path = os.path.join(_tmp_path, "../logs/{}".format(log_filename))
+        os.makedirs(os.path.join(_tmp_path, "logs"))
+        if log_filename:
+            _tmp_path = os.path.join(_tmp_path, "logs/{}".format(log_filename))
+        else:
+            _tmp_path = os.path.join(_tmp_path, "logs/{}".format("default.log"))
         file_handler = logging.handlers.TimedRotatingFileHandler(_tmp_path, when="midnight", backupCount=30)
         file_formatter = logging.Formatter(
             fmt=FILE_LOG_FMT,
@@ -125,4 +116,4 @@ def _get_logger(log_to_file=True, log_filename="default.log", log_level="DEBUG")
     return _logger
 
 
-logger = _get_logger(log_to_file=False)
+logger = _get_logger

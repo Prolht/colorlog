@@ -1,4 +1,5 @@
 from log import logger
 
-logger.debug("Hello!")
-logger.info("233")
+log = logger()
+log.debug("Hello!")
+log.info("233")
