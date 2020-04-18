@@ -3,6 +3,7 @@
 
 
 r"""python log with color
+
 log.py
     log module
     :author:    lightless <root@lightless.me>
@@ -10,8 +11,7 @@ log.py
     :license:   GPL-3.0, see LICENSE for more details.
     :copyright: Copyright (c) 2017 lightless. All rights reserved
 
-Usage::
-
+Usage:
     from log import logger
     log = logger(log_to_file=True)
     log.debug("Hello World")
@@ -34,7 +34,7 @@ light_bg_red,       light_bg_green,     light_bg_yellow,    light_bg_blue,      
 light_bg_cyan,      light_bg_white
 """
 LEVEL_COLOR = {
-    'DEBUG':        'white',
+    'DEBUG':        'cyan',
     'INFO':         'green',
     'WARNING':      'yellow',
     'ERROR':        'red',
