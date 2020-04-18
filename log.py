@@ -3,6 +3,12 @@
 
 
 r"""python log with color
+log.py
+    log module
+    :author:    lightless <root@lightless.me>
+    :homepage:  None
+    :license:   GPL-3.0, see LICENSE for more details.
+    :copyright: Copyright (c) 2017 lightless. All rights reserved
 
 Usage::
 
@@ -15,8 +21,32 @@ import logging
 import logging.handlers
 import warnings
 
-from config import LEVEL_COLOR, STDOUT_DATE_FMT, STDOUT_DATE_FMT, FILE_DATE_FMT, FILE_DATE_FMT, STDOUT_LOG_FMT # 读取配置文件
 __all__ = ["logger"]
+
+
+# 用户配置部分 ↓
+"""可选颜色
+black,              red,                green,              yellow,             blue,
+magenta,            cyan,               white,              bg_black,           bg_red,
+bg_green,           bg_yellow,          bg_blue,            bg_magenta,         bg_cyan,
+bg_white,           light_black,        light_red,          light_green,        light_yellow,
+light_blue,         light_magenta,      light_cyan,         light_white,        light_bg_black,
+light_bg_red,       light_bg_green,     light_bg_yellow,    light_bg_blue,      light_bg_magenta,
+light_bg_cyan,      light_bg_white
+"""
+LEVEL_COLOR = {
+    'DEBUG':        'white',
+    'INFO':         'green',
+    'WARNING':      'yellow',
+    'ERROR':        'red',
+    'CRITICAL':     'red,bg_white',
+}
+
+STDOUT_LOG_FMT = "%(log_color)s[%(asctime)s] [%(levelname)s] [%(threadName)s] [%(filename)s:%(lineno)d] %(message)s"
+STDOUT_DATE_FMT = "%Y-%m-%d %H:%M:%S"
+FILE_LOG_FMT = "[%(asctime)s] [%(levelname)s] [%(threadName)s] [%(filename)s:%(lineno)d] %(message)s"
+FILE_DATE_FMT = "%Y-%m-%d %H:%M:%S"
+# 用户配置部分 ↑
 
 
 class ColoredFormatter(logging.Formatter):
