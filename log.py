@@ -7,11 +7,8 @@ r"""python log with color
 Usage::
 
     from log import logger
-
-log = logger(log_to_file=True)
-log.debug("Hello World")
-
-
+    log = logger(log_to_file=True)
+    log.debug("Hello World")
 """
 import os
 import logging
