@@ -10,7 +10,7 @@ log.debug("Hello World")
 ```
 
 ## config
-颜色的配置均在`config.py`中。
+颜色的配置均在`log.py`的开头部分。
 
 日志格式中的`%(log_color)s`代表颜色的占位符，请勿删除。
 

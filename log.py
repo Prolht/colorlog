@@ -19,7 +19,6 @@ Usage::
 import os
 import logging
 import logging.handlers
-import warnings
 
 __all__ = ["logger"]
 
