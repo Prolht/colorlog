@@ -125,7 +125,10 @@ def _get_logger(log_to_file=False, log_filename="", log_level="DEBUG"):
 
     if log_to_file or log_filename:
         _tmp_path = os.path.dirname(os.path.abspath(__file__))
-        os.makedirs(os.path.join(_tmp_path, "logs"))
+        try:
+            os.makedirs(os.path.join(_tmp_path, "logs"))
+        except Exception as e:
+            pass
         if log_filename:
             _tmp_path = os.path.join(_tmp_path, "logs/{}".format(log_filename))
         else:
